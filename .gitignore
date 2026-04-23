@@ -1,0 +1,86 @@
+# =========================
+# Dependencies
+# =========================
+node_modules/
+
+# =========================
+# Build output (Vite)
+# =========================
+dist/
+.vite/
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Cache
+# =========================
+.cache/
+.tmp/
+temp/
+
+# =========================
+# Editor / IDE
+# =========================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# =========================
+# TypeScript (you have types)
+# =========================
+*.tsbuildinfo
+
+# =========================
+# ESLint cache
+# =========================
+.eslintcache
+
+# =========================
+# Tailwind / PostCSS
+# =========================
+.postcss-cache/
+
+# =========================
+# Testing (future-proof)
+# =========================
+coverage/
+
+# =========================
+# Misc
+# =========================
+*.zip
+*.tar
+*.gz
+*.rar
+
+# =========================
+# Optional: local config overrides
+# =========================
+.local/
