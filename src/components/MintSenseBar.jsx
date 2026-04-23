@@ -18,7 +18,7 @@ const MintSenseBar = ({ onExtracted, group, mode = "expense", summaryText = "" }
       const names = group.participants.map(p => p.name).join(', ');
 
       const systemPrompt = mode === "expense"
-        ? `You are MintSense, an AI assistant for SplitMint expense app. Extract expense details as JSON with keys: description (string), amount (number), payer (string, match to participant names: ${names}), splitMode ('equal'|'custom'|'percentage'), date (ISO string or null). Return ONLY valid JSON, no markdown.`
+        ? `You are MintSense, an AI assistant for SplitMint expense app. Extract expense details as JSON with keys: description (string), amount (number), payer (string, match to participant names: ${names}), splitMode ('equal'|'custom'|'percentage'), date (ISO string or null). Also extract a category from this list based on the description: 'Food', 'Travel', 'Entertainment', 'Utilities', 'Shopping', 'Other'. Return it as the 'category' field in the JSON. Return ONLY valid JSON, no markdown.`
         : `You are MintSense, an AI assistant for SplitMint expense app. Summarize this group's activity based on the provided data. Return in 2-3 readable sentences.`;
 
       const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {

@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
-import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, Trash2, Pencil } from 'lucide-react';
 
 const ColorLedger = ({ expenses, group, myId, onDelete }) => {
   const [expandedId, setExpandedId] = useState(null);
+  const navigate = useNavigate();
+
+  const handleDelete = (expenseId) => {
+    if (window.confirm('Delete this expense? This will recalculate all balances.')) {
+      onDelete(expenseId);
+    }
+  };
 
   if (!expenses.length) {
     return (
@@ -75,15 +83,24 @@ const ColorLedger = ({ expenses, group, myId, onDelete }) => {
                     })}
                   </ul>
                 </div>
-                {onDelete && (
+                <div className="flex gap-2">
                   <button 
-                    onClick={(e) => { e.stopPropagation(); onDelete(expense.id); }}
-                    className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                    title="Delete Expense"
+                    onClick={(e) => { e.stopPropagation(); navigate(`/group/${group.id}/expense/${expense.id}`); }}
+                    className="p-2 text-gray-400 hover:text-indigo-500 hover:bg-gray-100 rounded-lg transition-colors"
+                    title="Edit Expense"
                   >
-                    <Trash2 size={16} />
+                    <Pencil size={16} />
                   </button>
-                )}
+                  {onDelete && (
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); handleDelete(expense.id); }}
+                      className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                      title="Delete Expense"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  )}
+                </div>
               </div>
             )}
           </div>

@@ -49,15 +49,44 @@ const useGroupStore = create((set, get) => ({
     return newGroup;
   },
 
-  updateGroup: (groupId, name, updatedParticipants) => {
+  updateGroup: (groupId, updates) => {
     const { groups, saveGroups } = get();
-    const updatedGroups = groups.map(g => g.id === groupId ? { ...g, name, participants: updatedParticipants } : g);
+    const updatedGroups = groups.map(g => g.id === groupId ? { ...g, ...updates } : g);
     saveGroups(updatedGroups);
   },
 
   deleteGroup: (groupId) => {
     const { groups, saveGroups } = get();
     saveGroups(groups.filter(g => g.id !== groupId));
+  },
+
+  updateParticipantName: (groupId, participantId, newName) => {
+    const { groups, saveGroups } = get();
+    const updatedGroups = groups.map(g => {
+      if (g.id !== groupId) return g;
+      const updatedParticipants = g.participants.map(p => p.id === participantId ? { ...p, name: newName } : p);
+      return { ...g, participants: updatedParticipants };
+    });
+    saveGroups(updatedGroups);
+  },
+
+  removeParticipant: (groupId, participantId) => {
+    const { groups, saveGroups } = get();
+    const updatedGroups = groups.map(g => {
+      if (g.id !== groupId) return g;
+      const updatedParticipants = g.participants.filter(p => p.id !== participantId);
+      return { ...g, participants: updatedParticipants };
+    });
+    saveGroups(updatedGroups);
+  },
+
+  addParticipant: (groupId, participant) => {
+    const { groups, saveGroups } = get();
+    const updatedGroups = groups.map(g => {
+      if (g.id !== groupId) return g;
+      return { ...g, participants: [...g.participants, participant] };
+    });
+    saveGroups(updatedGroups);
   }
 }));
 

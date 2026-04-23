@@ -1,7 +1,15 @@
 import React from 'react';
 import { Search } from 'lucide-react';
 
-const FilterBar = ({ search, setSearch, filterPayer, setFilterPayer, participants }) => {
+const FilterBar = ({ 
+  search, setSearch, 
+  filterPayer, setFilterPayer, 
+  filterDateFrom, setFilterDateFrom,
+  filterDateTo, setFilterDateTo,
+  filterAmountMin, setFilterAmountMin,
+  filterAmountMax, setFilterAmountMax,
+  participants 
+}) => {
   return (
     <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-4 mb-6">
       <div className="relative flex-grow">
@@ -25,6 +33,35 @@ const FilterBar = ({ search, setSearch, filterPayer, setFilterPayer, participant
           <option key={p.id} value={p.id}>{p.name}</option>
         ))}
       </select>
+      
+      <input 
+        type="date"
+        className="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:ring-primary focus:border-primary outline-none"
+        value={filterDateFrom}
+        onChange={(e) => setFilterDateFrom(e.target.value)}
+        title="Date From"
+      />
+      <input 
+        type="date"
+        className="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:ring-primary focus:border-primary outline-none"
+        value={filterDateTo}
+        onChange={(e) => setFilterDateTo(e.target.value)}
+        title="Date To"
+      />
+      <input 
+        type="number"
+        placeholder="Min ₹"
+        className="w-24 px-4 py-2 border border-gray-200 rounded-lg text-sm focus:ring-primary focus:border-primary outline-none"
+        value={filterAmountMin}
+        onChange={(e) => setFilterAmountMin(e.target.value)}
+      />
+      <input 
+        type="number"
+        placeholder="Max ₹"
+        className="w-24 px-4 py-2 border border-gray-200 rounded-lg text-sm focus:ring-primary focus:border-primary outline-none"
+        value={filterAmountMax}
+        onChange={(e) => setFilterAmountMax(e.target.value)}
+      />
     </div>
   );
 };

@@ -22,7 +22,7 @@ const ExpensePage = () => {
   const [amount, setAmount] = useState(existingExpense ? existingExpense.amount.toString() : '');
   const [date, setDate] = useState(existingExpense?.date ? existingExpense.date.split('T')[0] : new Date().toISOString().split('T')[0]);
   const [payerId, setPayerId] = useState(existingExpense?.payerId || (group ? group.participants[0].id : ''));
-  const [category, setCategory] = useState(existingExpense?.category || 'Food');
+  const [category, setCategory] = useState(existingExpense?.category || 'Other');
   const [splitMode, setSplitMode] = useState(existingExpense?.splitMode || 'equal');
   
   const initialActive = existingExpense 
@@ -65,6 +65,14 @@ const ExpensePage = () => {
     if (parsed.payer) {
       const match = group.participants.find(p => p.name.toLowerCase().includes(parsed.payer.toLowerCase()));
       if (match) setPayerId(match.id);
+    }
+    if (parsed.category) {
+      const validCategories = ['Food', 'Travel', 'Entertainment', 'Utilities', 'Shopping', 'Other'];
+      if (validCategories.includes(parsed.category)) {
+        setCategory(parsed.category);
+      } else {
+        setCategory('Other');
+      }
     }
   };
 

@@ -4,12 +4,17 @@ import { ChevronRight } from 'lucide-react';
 import useBalanceStore from '../store/balanceStore';
 import useAuthStore from '../store/authStore';
 import ParticipantBadge from './ParticipantBadge';
+import useExpenseStore from '../store/expenseStore';
 
 const GroupCard = ({ group }) => {
   const { currentUser } = useAuthStore();
   const balanceData = useBalanceStore.getState().getGroupBalance(group.id);
   
   const myNet = balanceData?.netBalances[currentUser.id] || 0;
+  
+  const totalSpent = useExpenseStore.getState().expenses
+      .filter(e => e.groupId === group.id)
+      .reduce((sum, e) => sum + e.amount, 0);
   
   return (
     <Link to={`/group/${group.id}`} className="block">
@@ -25,7 +30,13 @@ const GroupCard = ({ group }) => {
           ))}
         </div>
         
-        <div className="pt-4 border-t border-gray-50">
+        <div className="pt-4 border-t border-gray-50 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-500">Total Spent</span>
+            <span className="font-semibold text-gray-900">
+              ₹{totalSpent.toFixed(2)}
+            </span>
+          </div>
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-500">Your Balance</span>
             <span className={`font-semibold ${myNet > 0 ? 'text-success' : myNet < 0 ? 'text-danger' : 'text-gray-500'}`}>
