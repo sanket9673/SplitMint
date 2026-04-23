@@ -1,47 +1,100 @@
 # SplitMint 🪙
 
-SplitMint is a full-featured, production-ready expense splitting web application designed to solve the UI/UX friction of tracking shared group expenses.
+**An AI-Powered Expense Splitting and Ledger Application.**
 
-![SplitMint Dashboard Dashboard](https://via.placeholder.com/800x400.png?text=SplitMint+Dashboard)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-443E38?style=for-the-badge&logo=react&logoColor=white)
+![Groq](https://img.shields.io/badge/AI-Groq_Llama3-black?style=for-the-badge)
 
-## Features
+Built as part of the **Intern-AI Engineer** assignment for **Karbon Business**. SplitMint is a deep-dive into fintech logic, encompassing complex ledger algorithms, greedy settlement paths, and Natural Language Processing (NLP) parameter extraction.
 
-- [x] **Store-based Architecture**: Persistent user sessions and data using Zustand + localStorage.
-- [x] **Smart Balance Engine**: Efficient calculation of net balances and pairwise debts.
-- [x] **Minimal Settlement Algorithm**: Greedy algorithm to reduce total transaction paths for settlements.
-- [x] **Split Settings**: Split expenses equally, by custom amount, or by percentages.
-- [x] **MintSense AI Integration**: Feature powered by Groq (LLaMA 3) to automatically parse natural language expense strings and summarize group activity.
-- [x] **Interactive Data Visualization**: Bar charts and Pie charts via Recharts for beautiful data insights.
-- [x] **Advanced Filtering**: Live search and filter expenses over descriptions and payers.
+---
 
-## Tech Stack Rationale
+## 🚀 Overview
 
-- **React 18 + Vite**: Chosen for lightning-fast HMR and optimized production builds. 
-- **Tailwind CSS (JIT)**: Enables hyper-customized, responsive UIs via CSS utility classes without leaving the JSX context.
-- **Zustand**: A small, fast, and scalable bearbones state-management solution perfectly suited for client-only data storage, chosen over Redux for its reduced boilerplate.
-- **React Router v6**: Used for declarative nested routing across the app.
-- **Recharts**: Makes building accessible, responsive, and composable declarative D3 charts straightforward.
-- **Lucide React**: Crisp, modern iconography.
+SplitMint is a complete frontend solution that simplifies group expenses. Utilizing a strictly formulated greedy algorithm, the application inherently calculates absolute minimalist settlement matrices, drastically simplifying how friends and teams settle debts. 
 
-## Getting Started
+Aimed at pushing bounds, it features **MintSense AI**, an orchestration module that parses raw conversational strings into robust, fully structured JSON financial inputs.
 
-To run SplitMint locally:
+## ✨ Key Features
 
-```bash
-npm install
-npm run dev
+### 🧮 Advanced Financial Engine
+*   **Multi-Modal Splits:** Handles Exact, Percentage, and Equal debt distribution.
+*   **Greedy Algorithmic Settlements:** Intersects webs of group debts, automatically neutralizing circular debt and suggesting the minimal path of actual monetary transfers.
+*   **Bulletproof Float Handling:** Enforces stringent `.toFixed(2)` logic arrays to prevent standard JavaScript decimal leakages.
+
+### 🤖 MintSense AI Integration
+*   **NLP Expense Parsing:** Type "Paid 500 for taxi with Rohan", and MintSense intelligently populates the form (Title: Taxi, Amount: 500, Category: Travel, Split: Equal).
+*   **Smart Categorization:** Automatically maps untagged operations into distinct categories for downstream rendering.
+*   **Contextual Advice:** Reads the underlying settlement JSON array and gives user-friendly, personalized directives on resolving cashflows gracefully.
+
+### 📊 Comprehensive Tooling & Dashboards
+*   **Granular Filtering:** Query transactions securely by amount bounds, specific localized date arrays, or involved participant logic arrays.
+*   **Data Visualization:** Incorporates live Rechart metrics cleanly displaying contribution-vs-share logic at a glance.
+*   **Robust Management:** Dynamically enforces constraints on groups, protecting arrays from wiping while linked expenses exist un-transferred.
+
+---
+
+## 🛠 Tech Stack
+
+*   **Framework:** React 18 (Vite)
+*   **State Management:** Zustand (w/ Local Storage persistence wrapper)
+*   **Styling:** Tailwind CSS + Lucide React (Icons)
+*   **Charts:** Recharts
+*   **Date Formatting:** date-fns
+*   **AI Provider:** Groq API (Llama-3 model series for rapid latency)
+
+---
+
+## 💻 Running the App Locally
+
+Ensure you have Node.js installed on your machine.
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/sanket9673/SplitMint.git
+   cd SplitMint
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Environment Setup:**
+   Create a `.env` file in the root directory and add a Groq API Key to enable the MintSense features.
+   ```
+   VITE_GROQ_API_KEY=your_groq_api_key_here
+   ```
+
+4. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:5173` to view the app in your local browser.
+
+---
+
+## 📂 Project Structure Snapshot
+
+```text
+src/
+├── components/       # Shared UI logic (Ledgers, Modals, MintSense Bar)
+├── pages/            # View integrations (Dashboard, Group, History, Settle)
+├── store/            # Zustand bounds (authStore, groupStore, expenseStore, balanceStore)
+├── utils/
+│   ├── balanceEngine.js      # Ledger operations
+│   ├── settlements.js        # Greedy minimal-transfer algorithm 
+│   ├── splitCalculator.js    # Divides multi-modal splits reliably
+│   └── rounding.js           # Math float protectors
+└── App.jsx           # Main generic routing matrix
 ```
 
-*Note: Create a `.env` file with your `VITE_GROQ_API_KEY=your_key` to enable MintSense AI features.*
+---
 
-## Architecture Decisions & Trade-offs
+## 🧠 Why Karbon Business?
 
-1. **No Backend (localStorage)**: The app runs 100% on the client. Chosen for speed of execution representing "technical depth" in front-end architecture. The trade-off is the lack of seamless multi-device sync or backend validation.
-2. **Greedy Settlement Algorithm**: Used an O(n log n) sorting + greedy 2-pointer approach to match largest debtors with largest creditors. Given the max constraints (4 users), this provides optimal real-time settlement paths.
-3. **Groq AI API**: Replaced mock parsing with legitimate payload structures over Groq's high-speed API (using LLaMA 3), ensuring a production-like NLP workflow.
-4. **State modularity**: Decoupled `authStore`, `groupStore`, `expenseStore`, and `balanceStore` to mimic standard layered server architectures and normalize state updates easily.
+This project was built over 48 hours for the **Intern-AI Engineer** hackathon. It specifically attempts to emulate the precise engineering expected at a company disrupting the corporate card and expense management sphere. Between processing complex dynamic ledgers natively without lag, visualizing debt arrays, and cleanly mapping AI NLP bounds bridging unstructured data into fintech-appropriate bounds, SplitMint represents high-velocity product thinking.
 
-## Known Limitations & Looking Forward
-- Users are confined to a single browser storage.
-- Real authentication and JWT issuance is substituted with hashed localStorage indexing.
-- **Next steps**: Implementing a Postgres + Prisma backend via Next.js to provide instant WebSocket sync, push-notifications for balances, and multi-currency exchange-rate handling.
+> For a deeper dive into the technical tradeoffs and architectural choices made, please see the [APPROACH.md](./APPROACH.md) file included in this repository.
