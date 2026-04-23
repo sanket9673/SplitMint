@@ -97,4 +97,4 @@ src/
 
 This project was built over 48 hours for the **Intern-AI Engineer** hackathon. It specifically attempts to emulate the precise engineering expected at a company disrupting the corporate card and expense management sphere. Between processing complex dynamic ledgers natively without lag, visualizing debt arrays, and cleanly mapping AI NLP bounds bridging unstructured data into fintech-appropriate bounds, SplitMint represents high-velocity product thinking.
 
-> For a deeper dive into the technical tradeoffs and architectural choices made, please see the [APPROACH.md](./APPROACH.md) file included in this repository.
+> For a deeper dive into the technical tradeoffs and architectural choices made, please see the approach.md file included in this repository.
