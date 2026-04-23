@@ -66,18 +66,20 @@ Keep it friendly, specific, and under 80 words total.`;
           'Authorization': `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`
         },
         body: JSON.stringify({
-          model: 'llama3-8b-8192',
+          model: 'openai/gpt-oss-20b',
           messages: [{ role: 'user', content: prompt }],
-          max_tokens: 200,
-          temperature: 0.7
+          temperature: 0.2
         })
       });
       const data = await response.json();
+      if (data.error) throw new Error(data.error.message);
+      
       const text = data.choices?.[0]?.message?.content?.trim();
       if (!text) throw new Error('No response from AI');
       setAiInsight(text);
     } catch (err) {
-      setAiError('MintSense could not generate suggestions right now.');
+      console.error(err);
+      setAiError(err.message || 'MintSense could not generate suggestions right now.');
     } finally {
       setAiLoading(false);
     }
